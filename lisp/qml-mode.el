@@ -1,246 +1,114 @@
-(defvar qml-mode-hook nil)
+;;; qml-mode.el --- Mode for Qt QML file
 
-;;(defvar qml-font-lock-default-face 'qml-font-lock-default-face)
+;; Filename: qml-mode.el
+;; Description: Mode for Qt QML file
+;; Author: Andy Stewart <lazycat.manatee@gmail.com>
+;; Maintainer: Andy Stewart <lazycat.manatee@gmail.com>
+;; Copyright (C) 2013 ~ 2014, Andy Stewart, all rights reserved.
+;; Created: 2013-12-31 21:23:56
+;; Version: 0.3
+;; Last-Updated: 2014-05-12 21:16:14
+;;           By: Andres Gomez Garcia
+;; URL: http://www.emacswiki.org/emacs/download/qml-mode.el
+;; Keywords:
+;; Compatibility: GNU Emacs 24.3.50.1
+;;
+;; Features that might be required by this library:
+;;
+;;
+;;
 
-(let ((red "#a35757")
-			(green "#7ac470")
-			(yellow "#dfe14e")
-			(orange "#ef6d22")
-			(blue "#5083b2")
-			(magenta "#b781ac")
-			(cyan "#b0b5d2")
-			(white "#f0f0f0"))
+;;; This file is NOT part of GNU Emacs
 
-	(defface qml-preprocessor-kwds-face
-			`((t (:foreground ,yellow)))
-		"*Face for preprocesor directives."
-		)
-  (defvar qml-preprocessor-kwds-face 'qml-preprocessor-kwds-face)
+;;; License
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
 
-	(defface qml-constant-kwds-face
-			`((t (:foreground ,cyan)))
-		"*"
-		)
-	(defvar qml-constant-kwds-face 'qml-constant-kwds-face)
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
 
-	(defface qml-global-funcs-face
-			`((t (:foreground ,red)))
-		"*"
-		)
-	(defvar qml-global-funcs-face 'qml-global-funcs-face)
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
 
-	(defface qml-global-classes
-			`((t (:foreground ,blue)))
-		"*"
-		)
-	(defvar qml-global-classes 'qml-global-classes)
+;;; Commentary:
+;;
+;; Mode for Qt QML file
+;;
 
-	(defface qml-global-props-face
-			`((t (:foreground ,blue)))
-		"*"
-		)
-	(defvar qml-global-props-face 'qml-global-props-face)
+;;; Installation:
+;;
+;; Put qml-mode.el to your load-path.
+;; The load-path is usually ~/elisp/.
+;; It's set in your ~/.emacs like this:
+;; (add-to-list 'load-path (expand-file-name "~/elisp"))
+;;
+;; And the following to your ~/.emacs startup file.
+;;
+;; (require 'qml-mode)
+;;
+;; No need more.
 
-	(defface qml-operators-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-operators-face 'qml-operators-face)
+;;; Customize:
+;;
+;;
+;;
+;; All of the above can customize by:
+;;      M-x customize-group RET qml-mode RET
+;;
 
-	(defface qml-specifier-kwds-face
-			`((t (:foreground ,magenta)))
-		"*"
-		)
-	(defvar qml-specifier-kwds-face 'qml-specifier-kwds-face)
+;;; Change log:
+;;
+;; 2014/05/12
+;;     * Fixed qml-indent-line
+;;     
+;; 2014/04/10
+;;      * Improve qml-font-lock-keywords.
+;;
+;; 2014/04/09
+;;      * Derived-mode from text-mode, and not prog-mode.
+;;      * Fixed syntax highlight and indent problem.
+;;
+;; 2014/01/01
+;;      * Fixed keywords regexp
+;;      * Fxied qml-indent-line
+;;
+;; 2013/12/31
+;;      * First released.
+;;
 
-	(defface qml-package-kwds-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-package-kwds-face 'qml-package-kwds-face)
+;;; Acknowledgements:
+;;
+;;
+;;
 
-	(defface qml-class-kwds-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-class-kwds-face 'qml-class-kwds-face)
+;;; TODO
+;;
+;;
+;;
 
-	(defface qml-other-decl-kwds-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-other-decl-kwds-face 'qml-other-decl-kwds-face)
+;;; Require
 
-	(defface qml-other-decl-2-kwds-face
-			`((t (:foreground ,blue)))
-		"* function, var"
-		)
-	(defvar qml-other-decl-2-kwds-face 'qml-other-decl-2-kwds-face)
+(require 'css-mode)
+(require 'js)
 
-	(defface qml-decl-level-kwds-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-decl-level-kwds-face 'qml-decl-level-kwds-face)
+;;; Code:
 
-	(defface qml-conditional-kwds-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-conditional-kwds-face 'qml-conditional-kwds-face)
-
-	(defface qml-block-stmt-1-kwds-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-block-stmt-1-kwds-face 'qml-block-stmt-1-kwds-face)
-
-	(defface qml-simple-stmt-kwds-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-simple-stmt-kwds-face 'qml-simple-stmt-kwds-face)
-
-	(defface qml-label-kwds-face
-			`((t (:foreground ,yellow)))
-		"*"
-		)
-	(defvar qml-label-kwds-face 'qml-label-kwds-face)
-
-	(defface qml-expr-kwds-face
-			`((t (:foreground ,red)))
-		"*"
-		)
-	(defvar qml-expr-kwds-face 'qml-expr-kwds-face)
-
-	(defface qml-other-kwds-face
-			`((t (:foreground ,red)))
-		"*"
-		)
-	(defvar qml-other-kwds-face 'qml-other-kwds-face)
-
-	(defface qml-package-name-face
-			`((t (:foreground ,green)))
-		"*"
-		)
-	(defvar qml-package-name-face 'qml-package-name-face)
-
-	(defface qml-class-name-face
-			`((t (:foreground ,cyan)))
-		"*"
-		)
-	(defvar qml-class-name-face 'qml-class-name-face)
-
-	(defface qml-function-name-face
-			`((t (:foreground ,green)))
-		"*"
-		)
-	(defvar qml-function-name-face 'qml-function-name-face)
-
-	(defface qml-variable-name-face
-			`((t (:foreground ,cyan)))
-		"*"
-		)
-	(defvar qml-variable-name-face 'qml-variable-name-face)
-  )
-
-(defconst qml-font-lock-keywords
-  (let ((kw1 (mapconcat 'identity
-                        '("Qt" "import" "property"
-                          "State" "PropertyChanges" "StateGroup" "ParentChange"
-                          "StateChangeScript" "AnchorChanges" "PropertyAnimation" "NumberAnimation"
-                          "ColorAnimation" "RotationAnimation" "SequentialAnimation" "ParallelAnimation"
-                          "PauseAnimation" "ParentAnimation" "AnchorAnimation" "SmoothedAnimation"
-                          "PropertyAction" "ScriptAction" "Transition" "SpringFollow"
-                          "Behavior" "Binding" "ListModel" "ListElement"
-                          "VisualItemModel" "VisualDataModel" "Package" "XmlListModel"
-                          "XmlRole" "Connections" "Component" "Timer"
-                          "QtObject" "WorkerScript" "Item" "Rectangle"
-                          "Image" "BorderImage" "Text" "TextInput"
-                          "TextEdit" "MouseArea" "FocusScope" "Flickable"
-                          "Flipable" "GestureArea" "Loader" "Repeater"
-                          "SystemPalette" "LayoutItem" "Scale" "Rotation"
-                          "Translate" "ViewsPositionersMediaEffects" "ListView" "GridView"
-                          "PathView" "Path" "PathLine" "PathQuad"
-                          "PathCubic" "PathAttribute" "PathPercent" "WebView"
-                          "Column" "Row" "Grid" "Flow"
-                          "SoundEffect" "Audio" "Video" "Particles"
-                          "ParticleMotionLinear" "ParticleMotionGravity" "ParticleMotionWander")
-                        "\\|"))
-        (kw2 (mapconcat 'identity
-                        '("int" "bool" "double" "real"
-                          "string" "url" "color" "date"
-                          "variant" "alias"
-                          "signal" "on" "parent" "as")
-                        "\\|"))
-        (kw3 (mapconcat 'identity
-                        '("NoButton" "LeftButton" "RightButton" "MidButton"
-                          "MiddleButton"
-                          "Horizontal" "Vertical"
-                          "AlignLeft" "AlignRight" "AlignHCenter" "AlignTop"
-                          "AlignBottom" "AlignVCenter" "AlignCenter"
-                          "Easing" "Linear" "InQuad" "OutQuad"
-                          "InOutQuad" "OutInQuad" "InCubic" "OutCubic"
-                          "InOutCubic" "OutInCubic" "InQuart" "OutQuart"
-                          "InOutQuart" "OutInQuart" "InQuint" "InQuint"
-                          "OutQuint" "InOutQuint" "OutInQuint" "InSine"
-                          "OutSine" "InExpo" "OutExpo" "InOutExpo"
-                          "OutInExpo" "InCirc" "OutCirc" "InOutCirc"
-                          "OutInCirc" "InElastic" "OutElastic" "InOutElastic"
-                          "OutInElastic" "InBack" "OutBack" "InOutBack"
-                          "OutInBack" "InBounce" "OutBounce" "InOutBounce"
-                          "OutInBounce")
-                        "\\|"))
-        (js-keywords (mapconcat 'identity
-                                '("break"
-                                  "case" "catch" "const" "continue"
-                                  "debugger" "default" "delete" "do"
-                                  "else" "enum"
-                                  "false" "finally" "for" "function"
-                                  "if" "in" "instanceof" "import"
-                                  "let"
-                                  "new" "null"
-                                  "return"
-                                  "switch"
-                                  "this" "throw" "true" "false" "try" "typeof"
-                                  "var" "void"
-                                  "while" "with"
-                                  "yield"
-                                  "undefined")
-                                "\\|"))
-        )
-    (list
-     (cons (concat "\\<\\(" kw1 "\\)\\>") font-lock-keyword-face)
-     (list (concat "\\<\\(" kw2 "\\)\\>[ \t]*[^:]") 1 qml-function-name-face)
-     ;;(cons (concat "\\<\\(" kw2 "\\)\\>[ \t]*[^:]") qml-other-kwds-face)
-     (cons (concat "\\<\\(" kw3 "\\)\\>") font-lock-constant-face)
-     (cons (concat "\\<\\(" js-keywords "\\)\\>") font-lock-keyword-face)
-     ;;'("property[ \t]+\\([a-zA-Z_]+[a-zA-Z0-9_]*\\)" 1 font-lock-type-face)
-     (list (concat "property[ \t]+\\(" kw2 "\\)+[ \t]+\\([a-zA-Z_]+[a-zA-Z0-9_]*\\)") 2 font-lock-variable-name-face)
-     ;;'("\\(function\\|signal\\)\\{1\\}[ \t]+\\([a-zA-Z_]+[a-zA-Z0-9_]*\\)" 2 font-lock-function-name-face)
-     '("\\(function\\|signal\\)\\{1\\}[ \t]+\\([a-zA-Z_]+[a-zA-Z0-9_]*\\)" 2 qml-function-name-face)
-     '("\\([a-zA-Z_\\.]+[a-zA-Z0-9_]*\\)[ \t]*:" 1 font-lock-type-face)
-     '("\\([a-zA-Z0-9]+\\)[ \t]*{" 1 qml-specifier-kwds-face)
-     '("\\<id[ \t]*:[ \t]*\\([a-zA-Z0-9_]+\\)" 1 font-lock-constant-face)
-     '("\\([+-]?\\<[0-9]*\\.?[0-9]+[xX]?[0-9a-fA-F]*\\)" 1 font-lock-constant-face)
-     ;; '("\\<\\(0[xX][0-9a-fA-F]+\\)" 1 font-lock-constant-face)
-     )
-    ))
-
-
-(defvar qml-mode-syntax-table
-  (let ((qml-mode-syntax-table (make-syntax-table)))
-    ; Comment styles are same as C++
-    (modify-syntax-entry ?/ ". 124b" qml-mode-syntax-table)
-    (modify-syntax-entry ?* ". 23" qml-mode-syntax-table)
-    (modify-syntax-entry ?\n "> b" qml-mode-syntax-table)
-    (modify-syntax-entry ?' "\"" qml-mode-syntax-table)
-    qml-mode-syntax-table)
-  "Syntax table for qml-mode")
+(defcustom qml-mode-hook '()
+  "Called upon entry into term mode.
+This is run before the process is cranked up."
+  :type 'hook
+  :group 'qml-mode)
 
 (defvar qml-indent-width 4)
 
-(defconst qml-block-re "\\(^[ \t]*\\)\\([\\.a-zA-Z0-9]*\\)[ \t]*[a-zA-Z0-9_]*[ \t]*[a-zA-Z0-9_=<>(),: \t]*[{\\[]")
+(defconst qml-block-re "\\(^[ \t]*\\)\\([a-zA-Z0-9]*\\)[ \t]*[a-zA-Z0-9_]*[ \t]*.*{")
 
 (defun qml-get-beg-of-block ()
   (save-excursion
@@ -267,109 +135,129 @@
         (end (qml-get-end-of-block))
         (cur-indent nil))
     (save-excursion
-    ;;   (goto-char start)
-    ;;   (setq cur-indent (current-indentation))
-    ;;   (goto-char cur)
-    ;;   (setq cur-indent (+ cur-indent default-tab-width)))
-    (if (not (and start end (> cur start) (< cur end)))
-        (progn
-          ;;(save-excursion
-          (if start
-              (goto-char start))
-          (setq start (qml-get-beg-of-block))
-          (setq end (qml-get-end-of-block))
-          (while (and (not (eq start nil)) (not (eq end nil)) (not (and (> cur start) (< cur end))))
-          ;;(while (not (and (> cur start) (< cur end)))
-            (goto-char start)
+      (if (not (and start end (> cur start) (< cur end)))
+          (progn
+            (if start
+                (goto-char start))
             (setq start (qml-get-beg-of-block))
             (setq end (qml-get-end-of-block))
-            )
-          (if (or (eq start nil) (= (point) (point-min)))
-              (progn
-                (goto-char (point-min))
-                (when (re-search-forward qml-block-re nil t)
-                  (goto-char (match-beginning 2))
-                  (setq start (point))
-                  (goto-char (match-end 0))
-                  (backward-char)
-                  (condition-case nil
-                      (save-restriction
-                        (forward-list)
-                        (setq end (point))
-                        (setq cur-indent 0))
-                    (error nil)
-                    )
-                  )
-                ;; (goto-char start)
-                ;; (setq cur-indent (current-indentation))
-                )
+            (while (and (not (eq start nil)) (not (eq end nil)) (not (and (> cur start) (< cur end))))
+              (goto-char start)
+              (setq start (qml-get-beg-of-block))
+              (setq end (qml-get-end-of-block))
               )
-          )
-        ;; (progn
-        ;;   (goto-char start)
-        ;;   (setq cur-indent (current-indentation))
-        ;;   (goto-char cur)
-        ;;   (setq cur-indent (+ cur-indent default-tab-width)))
-        )
-        ;;   )
-        ;; )
-
-    (if (not cur-indent)
-        (progn
-          (goto-char start)
-          (setq cur-indent (current-indentation))
-          (goto-char cur)
-          (setq cur-indent (+ cur-indent tab-width))))
-    ;;(message (format "start: %d, end: %d, cur: %d, cur-indent: %d" start end cur cur-indent))
-    )
+            (if (or (eq start nil) (= (point) (point-min)))
+                (progn
+                  (goto-char (point-min))
+                  (when (re-search-forward qml-block-re nil t)
+                    (goto-char (match-beginning 2))
+                    (setq start (point))
+                    (goto-char (match-end 0))
+                    (backward-char)
+                    (condition-case nil
+                        (save-restriction
+                          (forward-list)
+                          (setq end (point))
+                          (setq cur-indent 0))
+                      (error nil)))))))
+      (if (not cur-indent)
+          (progn
+            (goto-char start)
+            (setq cur-indent (current-indentation))
+            (goto-char cur)
+            (unless (string= (string (char-after (- (point) 1))) "{")
+              (setq cur-indent (+ cur-indent tab-width))
+              )
+            )))
     (indent-line-to cur-indent)
-    (setq cur-line (line-number-at-pos))
-    (save-excursion
-      (setq search-result (re-search-forward "]" nil t)))
-    (if (and (= cur-line (line-number-at-pos end))
-             (or (not search-result)
-                 (/= cur-line (line-number-at-pos search-result))))
-        (indent-line-to (- cur-indent tab-width)))))
-    ;; (and start
-    ;;      end
-    ;;      (> cur start)
-    ;;      (< cur end))
-  ;;   )
-  ;; )
+    (if (string= (string (char-after (point))) "}")
+        (indent-line-to (- cur-indent tab-width))
+      )
+    ))
 
-(defun qml-indent-region (start end)
-  (save-excursion
-    (goto-char end)
-    (setq end-line-number (line-number-at-pos))
-    (goto-char start)
-    (setq cur-line-number (line-number-at-pos))
-    (while (< cur-line-number end-line-number)
-      (progn
-        (qml-indent-line)
-        (forward-line 1)
-        (setq cur-line-number (line-number-at-pos))))))
+(defvar qml-font-lock-keywords
+  `(
+    ;; Comment.
+    ("/\\*.*\\*/\\|//.*"
+     (0 font-lock-comment-face t t))
+    ;; Constants.
+    ("\\<\\(true\\|false\\)\\>"
+     (0 font-lock-constant-face)
+     )
+    (":[ \t]?\\(-?[0-9\.]+\\)"
+     (1 font-lock-constant-face)
+     )
+    ;; String.
+    ("\"[^\"]*\""
+     (0 font-lock-string-face))
+    ;; Keyword.
+    ("\\<\\(import\\|if\\|for\\|case\\|break\\|switch\\|else\\|[ \t]+if\\)\\>"
+     (1 font-lock-keyword-face nil t))
+    ;; Import
+    ("\\(^import\\)[ \t]+\\([a-zA-Z\.]+\\)[ \t]+\\([0-9\.]+\\)"
+     (1 font-lock-keyword-face nil t)
+     (2 font-lock-function-name-face nil t)
+     (3 font-lock-constant-face nil t)
+     )
+    ;; Element
+    ("\\([A-Z][a-zA-Z0-9]*\\)[ \t]?{"
+     (1 font-lock-function-name-face nil t))
+    ;; Property keyword.
+    ("\\(^[ \t]+property[ \t][a-zA-Z0-9_]+[ \t][a-zA-Z0-9_]+\\)"
+     (0 font-lock-variable-name-face nil t))
+    ;; Signal.
+    ("\\(^[ \t]+signal[ \t][a-zA-Z0-9]+\\)"
+     (0 font-lock-variable-name-face nil t))
+    ;; Properties.
+    ("\\([ \t]?[a-zA-Z0-9_\.]+\\):"
+     (1 font-lock-variable-name-face nil t))
+    ("\\<\\(anchors\\|margins\\)\\>"
+     (1 font-lock-variable-name-face nil t))
+    ;; Method
+    ("\\<\\(function\\) +\\([a-z][a-zA-Z0-9]*\\)\\>"
+     (1 font-lock-keyword-face nil t)
+     (2 font-lock-function-name-face nil t))
+    )
+  "Keywords to highlight in `qml-mode'.")
 
-(defun qml-mode()
+(defvar qml-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    (c-populate-syntax-table table)
+    table))
+
+;;;###autoload
+
+(define-derived-mode qml-mode text-mode "QML"
   "Major mode for Qt declarative UI"
   (interactive)
-  (kill-all-local-variables)
   (set-syntax-table qml-mode-syntax-table)
   (set (make-local-variable 'font-lock-defaults) '(qml-font-lock-keywords))
   (set (make-local-variable 'tab-width) qml-indent-width)
   (set (make-local-variable 'indent-tabs-mode) nil)
   (set (make-local-variable 'indent-line-function) 'qml-indent-line)
-  (set (make-local-variable 'indent-region-function) 'qml-indent-region)
-  ;; (local-set-key (kbd "}") #'(lambda () (interactive) (insert "}") (qml-indent-line)))
-  (local-set-key (kbd "M-;") #'(lambda (arg) (interactive "*P")
-                                       (require 'newcomment)
-                                       (let ((deactivate-mark t)
-                                             (comment-start "//") (comment-end ""))
-                                         (comment-dwim arg)
-                                         (if mark-active
-                                             (deactivate-mark)))))
+  (set (make-local-variable 'comment-start) "/* ")
+  (set (make-local-variable 'comment-end) " */")
   (setq major-mode 'qml-mode)
   (setq mode-name "qml")
+
+  (electric-indent-mode -1)
+
+  (use-local-map qml-mode-map)
   (run-hooks 'qml-mode-hook)
   )
 
+(defvar qml-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-M-q") 'qml-indent-exp)
+    map)
+  "Keymap used by `qml-mode'.")
+
+(defun qml-indent-exp ()
+  (interactive)
+  (save-excursion
+    (indent-buffer))
+  )
+
 (provide 'qml-mode)
+
+;;; qml-mode.el ends here
