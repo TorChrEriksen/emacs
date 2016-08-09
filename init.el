@@ -1,3 +1,6 @@
+;; set load-path
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
 ;; no startup message
 (setq inhibit-startup-message t)
 
@@ -41,3 +44,7 @@
   (c-set-offset 'brace-list-open 0)
   (c-set-offset 'brace-list-close 0))
 (add-hook 'c-mode-common-hook 'tc-c-mode-hook)
+
+;; qml mode
+(require 'qml-mode)
+(add-to-list 'auto-mode-alist '("\\.qml\\'" . qml-mode))
