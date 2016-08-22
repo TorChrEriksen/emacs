@@ -1,0 +1,35 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("::set_remote_filename()"
+ (filename . "~/repos/packages/meos-common/src/mplug_curl_output/curl_output.cpp")
+ (front-context-string . "curl_output::set")
+ (rear-context-string . "(true);\n}\n\nvoid\n")
+ (position . 31323))
+("::set_curl_destination()"
+ (filename . "~/repos/packages/meos-common/src/mplug_curl_output/curl_output.cpp")
+ (front-context-string . "curl_output::set")
+ (rear-context-string . "(true);\n}\n\nbool\n")
+ (position . 26548))
+("::curl_read()"
+ (filename . "~/repos/packages/meos-common/src/mplug_curl_output/curl_output.cpp")
+ (front-context-string . "curl_output::cur")
+ (rear-context-string . "    }\n}\n\nsize_t\n")
+ (position . 23240))
+("::read_func()"
+ (filename . "~/repos/packages/meos-common/src/mplug_curl_output/curl_output.cpp")
+ (front-context-string . "curl_output::rea")
+ (rear-context-string . "NULL;\n}\n\nsize_t\n")
+ (position . 24388))
+("::curl_thread()"
+ (filename . "~/repos/packages/meos-common/src/mplug_curl_output/curl_output.cpp")
+ (front-context-string . "curl_output::cur")
+ (rear-context-string . ";\n    }\n}\n\nvoid\n")
+ (position . 15213))
+("::output()"
+ (filename . "~/repos/packages/meos-common/src/mplug_curl_output/curl_output.cpp")
+ (front-context-string . "curl_output::out")
+ (rear-context-string . "g_output_status\n")
+ (position . 8945))
+)
