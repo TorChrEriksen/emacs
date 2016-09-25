@@ -45,14 +45,14 @@
 (global-set-key "\M-p" "\C-u1\M-v")
 (global-set-key "\M-n" "\C-u1\C-v")
 
-;; Display line numbers
-(global-linum-mode t)
-(setq linum-format "%5d \u2502 ")
+;; Display line numbers, this can create input lag
+;; (global-linum-mode t)
+;; (setq linum-format "%5d \u2502 ")
 
 ;; Cut, copy and paste stuff
 ;; (setq x-select-enable-primary t)
 (setq x-select-enable-clipboard t)
-(setq delete-selection-mode t)
+(delete-selection-mode 1)
 
 ;; (global-set-key "\C-w" 'clipboard-kill-region)
 ;; (global-set-key "\M-w" 'clipboard-kill-ring-save)

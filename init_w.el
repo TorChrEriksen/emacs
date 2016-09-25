@@ -18,11 +18,8 @@
 ;; no startup message, no menu bar, no toolbar, empty scratch buffer
 (setq inhibit-startup-message t)
 (menu-bar-mode -1)
+(tool-bar-mode -1)
 (setq initial-scratch-message "")
-
-;; Display line numbers
-(global-linum-mode t)
-(setq linum-format "%5d \u2502 ")
 
 ;; column numbers
 (setq column-number-mode t)
@@ -33,6 +30,9 @@
 ; disable auto-fill (@->_<-@)
 (setq auto-fill-mode nil)
 
+;; set window navigation
+(windmove-default-keybindings)
+
 ;; Make buffers read only as default
 (defun set-buffer-read-only () (setq buffer-read-only t))
 (add-hook 'emacs-startup-hook 'set-buffer-read-only)
@@ -42,6 +42,8 @@
 (global-set-key "\M-n" "\C-u1\C-v")
 
 ;; Cut, copy and paste stuff
+;; (setq x-select-enable-primary t)
+(setq x-select-enable-clipboard t)
 (delete-selection-mode 1)
 
 ;; remove trailing whitespace before saving
