@@ -13,10 +13,11 @@ export EDITOR="$VISUAL"
 
 # Prompt colouring
 # Ref: http://bitmote.com/index.php?post/2012/11/19/Using-ANSI-Color-Codes-to-Colorize-Your-Bash-Prompt-on-Linux
-PROMPT="\u@\h:\w> "
 # BACKGROUND="\[\033[1;30;43m\]"
 # CLEAR="\[\033[0m\]"
 # export PS1="$BACKGROUND\u@\h:\w>$CLEAR "
+PROMPT="\u@\h:\w> "
+NEXT_PROMPT="\u@\h:\w\n> "
 export PS1="$PROMPT"
 
 
@@ -41,9 +42,7 @@ function t2
 
 function np
 {
-    if [ "$1" == "reset"  ]; then
-	export PS1="$PROMPT"
-    else
-	export PS1="$PS1\n"
-    fi
+    PROMPT=$PS1
+    export PS1=$NEXT_PROMPT
+    NEXT_PROMPT=$PROMPT
 }
