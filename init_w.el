@@ -5,10 +5,6 @@
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/lisp/emacs-color-theme-solarized/")
 ;; (load-theme 'solarized t)
 
-;; uncomment if you have Tamsyn installed
-;; (custom-set-faces
-;;  '(default ((t (:family "Misc Tamsyn" :foundry "Misc" :slant normal :weight normal :height 113 :width normal)))))
-
 ;; Load MELPA
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
