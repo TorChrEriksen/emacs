@@ -6,8 +6,8 @@
 ;; (load-theme 'solarized t)
 
 ;; uncomment if you have Tamsyn installed
-;; (custom-set-faces
-;;  '(default ((t (:family "Misc Tamsyn" :foundry "Misc" :slant normal :weight normal :height 113 :width normal)))))
+(custom-set-faces
+ '(default ((t (:family "Misc Tamsyn" :foundry "Misc" :slant normal :weight normal :height 113 :width normal)))))
 
 ;; Load MELPA
 (require 'package) ;; You might already have this line
