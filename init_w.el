@@ -1,10 +1,6 @@
 ;; set load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; solarized theme
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/lisp/emacs-color-theme-solarized/")
-;; (load-theme 'solarized t)
-
 ;; uncomment if you have Tamsyn installed
 (custom-set-faces
  '(default ((t (:family "Misc Tamsyn" :foundry "Misc" :slant normal :weight normal :height 100 :width normal)))))
@@ -18,6 +14,11 @@
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
+
+(require 'solarized)
+(deftheme solarized-dark "The dark variant of the Solarized colour theme")
+(create-solarized-theme 'dark 'solarized-dark)
+(provide-theme 'solarized-dark)
 
 ;; no startup message, no menu bar, no toolbar, empty scratch buffer
 (setq inhibit-startup-message t)
@@ -33,6 +34,14 @@
 
 ; disable auto-fill (@->_<-@)
 (setq auto-fill-mode nil)
+
+; Fill column indicator (fci-mode)
+(setq-default fill-column 80)
+
+;; Ivy
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
 
 ;; set window navigation
 (windmove-default-keybindings)
@@ -98,6 +107,9 @@
 
 ; c hook
 (add-hook 'c-mode-common-hook 'tc-c-mode-hook)
+(add-hook 'c-mode-common-hook
+  (lambda()
+    (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
 
 ;; qml mode
 (require 'qml-mode)
