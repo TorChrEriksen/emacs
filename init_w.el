@@ -20,6 +20,10 @@
 (create-solarized-theme 'dark 'solarized-dark)
 (provide-theme 'solarized-dark)
 
+(deftheme solarized-light "The light variant of the Solarized colour theme")
+(create-solarized-theme 'light 'solarized-light)
+(provide-theme 'solarized-light)
+
 ;; no startup message, no menu bar, no toolbar, empty scratch buffer
 (setq inhibit-startup-message t)
 (menu-bar-mode -1)
