@@ -31,8 +31,23 @@
 (setq initial-scratch-message "")
 
 ;; Display line numbers
-;; (global-linum-mode t)
-;; (setq linum-format "%5d \u2502 ")
+(global-linum-mode t)
+
+;; Attempt to fix the scroll/type lag
+(with-eval-after-load "linum"
+  ;; set `linum-delay' so that linum uses `linum-schedule' to update linums.
+  (setq linum-delay t)
+
+  ;; create a new var to keep track of the current update timer.
+  (defvar-local my-linum-current-timer nil)
+
+  ;; rewrite linum-schedule so it waits for 1 second of idle time
+  ;; before updating, and so it only keeps one active idle timer going
+  (defun linum-schedule ()
+    (when (timerp my-linum-current-timer)
+      (cancel-timer my-linum-current-timer))
+    (setq my-linum-current-timer
+          (run-with-idle-timer 1 nil #'linum-update-current))))
 
 ;; column numbers
 (setq column-number-mode t)
