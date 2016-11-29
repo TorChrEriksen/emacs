@@ -17,8 +17,8 @@
 (setq initial-scratch-message "")
 
 ;; Display line numbers
-(global-linum-mode t)
-(setq linum-format "%5d \u2502 ")
+;; (global-linum-mode t)
+;; (setq linum-format "%5d \u2502 ")
 
 ;; column numbers
 (setq column-number-mode t)
