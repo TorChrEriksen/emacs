@@ -56,6 +56,7 @@
 
 ;; Cut, copy and paste stuff
 ;; (setq x-select-enable-primary t)
+;; (global-set-key (kbd "<mouse-2>") 'x-clipboard-yank)
 (setq x-select-enable-clipboard t)
 (delete-selection-mode 1)
 

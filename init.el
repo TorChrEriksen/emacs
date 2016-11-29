@@ -1,10 +1,6 @@
 ;; set load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; solarized theme
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/lisp/emacs-color-theme-solarized/")
-;; (load-theme 'solarized t)
-
 ;; Load MELPA
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
@@ -32,6 +28,11 @@
 
 ; disable auto-fill (@->_<-@)
 (setq auto-fill-mode nil)
+
+;; Ivy
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
 
 ; Fill column indicator (fci-mode)
 (setq-default fill-column 80)
