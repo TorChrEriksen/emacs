@@ -1,0 +1,48 @@
+Must have's:
+ivy
+fill-column-indicator
+
+neotree          - tree browser
+projectile       - project interaction
+expand-region    - highlight what you want, keep spamming
+flycheck         - syntax checking
+rubocop          - flycheck uses rubocop if available
+yasnippet        - template system
+multiple-cursors - mark, edit and so, on multiple lines
+powerline        - custom mode-line
+
+
+solarized-theme
+zenburn-theme
+
+Awesome page about integrating some of the packages above with ivy:
+http://oremacs.com/2015/04/16/ivy-mode/
+
+--------------------------------------------------------------------------------
+Could be interesting, but most probably overkill or already a feature in one of
+the "must have's"
+
+Cask                 - project management for emacs package development
+find-file-in-project - find files in project quickly
+imenu-anywhere       - provides navigation for imenu tags across all buffers
+                       that satisfy grouping criteria
+flx                  - https://github.com/lewang/flx
+flx-ido              - https://github.com/lewang/flx
+
+fuzzy matching, Ivy already has this but perhaps check the article about better
+fuzzy matching support in Ivy: http://oremacs.com/2016/01/06/ivy-flx/
+
+http://cedet.sourceforge.net/
+
+Check out ido package?
+
+--------------------------------------------------------------------------------
+Check out the following packages
+
+smex                          - M-x enhancement
+browse-kill-ring              -
+window-numbering              -
+magit                         -
+wgrep                         -
+company-mode (autocompletion) -
+fold-this                     - use in addition to hs-minor-mode

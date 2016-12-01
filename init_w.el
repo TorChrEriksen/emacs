@@ -30,6 +30,9 @@
 (tool-bar-mode -1)
 (setq initial-scratch-message "")
 
+;; powerline
+(powerline-default-theme)
+
 ;; Display line numbers
 (global-linum-mode t)
 
