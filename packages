@@ -5,11 +5,11 @@ fill-column-indicator
 dired-xxx        - extensions of dired built-in
 neotree          - tree browser
 projectile       - project interaction
-expand-region    - highlight what you want, keep spamming
+expand-region    - highlight what you want (emacsrocks.com/e09.html)
 flycheck         - syntax checking
 rubocop          - flycheck uses rubocop if available
 yasnippet        - template system
-multiple-cursors - mark, edit and so, on multiple lines
+multiple-cursors - mark, edit, on multiple lines (emacsrocks.com/e13.html)
 powerline        - custom mode-line
 
 
