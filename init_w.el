@@ -1,9 +1,23 @@
 ;; set load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; no startup message, no menu bar, no toolbar, empty scratch buffer
+(setq inhibit-startup-message t)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(setq initial-scratch-message "")
+
+;; default windows size
+(setq initial-frame-alist
+      '(
+        (width . 110)
+        (height . 70)
+        ))
+
 ;; uncomment if you have Tamsyn installed
 (custom-set-faces
- '(default ((t (:family "Misc Tamsyn" :foundry "Misc" :slant normal :weight normal :height 100 :width normal)))))
+ '(default ((t (:family "Misc Tamsyn" :foundry "Misc" :slant normal
+                        :weight normal :height 100 :width normal)))))
 
 ;; Load MELPA
 (require 'package) ;; You might already have this line
@@ -23,12 +37,6 @@
 (deftheme solarized-light "The light variant of the Solarized colour theme")
 (create-solarized-theme 'light 'solarized-light)
 (provide-theme 'solarized-light)
-
-;; no startup message, no menu bar, no toolbar, empty scratch buffer
-(setq inhibit-startup-message t)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(setq initial-scratch-message "")
 
 ;; powerline
 (powerline-default-theme)
@@ -75,6 +83,9 @@
 ;; Make buffers read only as default
 (defun set-buffer-read-only () (setq buffer-read-only t))
 (add-hook 'emacs-startup-hook 'set-buffer-read-only)
+
+;; Keybind for kill-this-buffer instead of kill-buffer
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 ;; Keybinds for scrolling window, without moving cursor
 (global-set-key "\M-p" "\C-u1\M-v")

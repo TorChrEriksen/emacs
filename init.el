@@ -58,6 +58,9 @@
 (defun set-buffer-read-only () (setq buffer-read-only t))
 (add-hook 'emacs-startup-hook 'set-buffer-read-only)
 
+;; Keybind for kill-this-buffer instead of kill-buffer
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+
 ;; Keybinds for scrolling window, without moving cursor
 (global-set-key "\M-p" "\C-u1\M-v")
 (global-set-key "\M-n" "\C-u1\C-v")
