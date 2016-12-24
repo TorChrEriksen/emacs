@@ -10,14 +10,14 @@
 ;; default windows size
 (setq initial-frame-alist
       '(
-        (width . 110)
-        (height . 70)
+        (width . 100)
+        (height . 45)
         ))
 
 ;; uncomment if you have Tamsyn installed
 (custom-set-faces
- '(default ((t (:family "Misc Tamsyn" :foundry "Misc" :slant normal
-                        :weight normal :height 100 :width normal)))))
+ '(default ((t (:family "Tamsyn" :slant normal
+                        :weight medium :height 110 :width normal)))))
 
 ;; Load MELPA
 (require 'package) ;; You might already have this line
