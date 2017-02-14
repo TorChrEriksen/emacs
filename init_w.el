@@ -136,8 +136,14 @@
 ; xml hook
 (add-hook 'nxml-mode-hook 'tc-indent-tabs-hook)
 
-; ruby hook
-; (add-hook 'ruby-mode-hook 'tc-indent-tabs-hook)
+;; ruby hook
+;; (add-hook 'ruby-mode-hook 'tc-indent-tabs-hook)
+
+;; css-hook
+(defun tc-css-mode-hook ()
+  (setq css-indent-offset 2))
+
+(add-hook 'css-mode-hook 'tc-css-mode-hook)
 
 ; javascript hook
 (add-hook 'js-mode-hook 'tc-indent-tabs-hook-js)

@@ -1,2 +1,4 @@
 C-x z : repeat last command once
 Query replace : M-%
+Regex incremental search: C-M-s
+Regex reverse incremental search: C-M-r
