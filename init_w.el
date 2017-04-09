@@ -10,8 +10,8 @@
 ;; default windows size
 (setq initial-frame-alist
       '(
-        (width . 110)
-        (height . 70)
+        (width . 100)
+        (height . 30)
         ))
 
 ;; uncomment if you have Tamsyn installed
