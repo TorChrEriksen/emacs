@@ -1,4 +1,24 @@
-C-x z : repeat last command once
-Query replace : M-%
-Regex incremental search: C-M-s
-Regex reverse incremental search: C-M-r
++------------------------+
+|Useful emacs keybindings|
++------------------------+
+
+M-<number>            Repeat next action n times (tested with character and
+                      macro).
+
+C-x z                 Repeat last command once.
+
+M-%                   Query replace.
+
+C-M-s                 Regex incremental search.
+
+C-M-r                 Regex reverse incremental search.
+
+C-x r d               Delete contents of rectangle.
+                      Pushes text to the left.
+
+C-x r c               Replace rectangle with spaces.
+
+C-x r o               Insert blank space to fill rectangle.
+                      Pushes text to the right.
+
+C-x r t string <RET>  Replace rectangle contents with string on each line.
