@@ -1,0 +1,3 @@
+The HOME patch must point to the parent directory where your .emacs.d
+directory resides.
+For example: D:\Repos\.emacs.d\ --> HOME=D:\Repos
