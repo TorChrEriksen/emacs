@@ -1,6 +1,23 @@
 ;; set load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; no startup message, no menu bar, no toolbar, empty scratch buffer
+(setq inhibit-startup-message t)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(setq initial-scratch-message "")
+
+;; default windows size
+(setq initial-frame-alist
+      '(
+        (width . 100)
+        (height . 30)
+        ))
+
+(set-face-font 'default "Tamsyn7x13-10")
+;; (set-face-font 'default "Tamsyn8x15-10")
+;; (set-face-font 'default "Tamsyn8x16-10")
+
 ;; Load MELPA
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
@@ -11,15 +28,20 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
 
-;; no startup message, no menu bar, no toolbar, empty scratch buffer
-(setq inhibit-startup-message t)
-(menu-bar-mode -1)
-(setq initial-scratch-message "")
+(require 'solarized)
+(deftheme solarized-dark "The dark variant of the Solarized colour theme")
+(create-solarized-theme 'dark 'solarized-dark)
+(provide-theme 'solarized-dark)
+
+(deftheme solarized-light "The light variant of the Solarized colour theme")
+(create-solarized-theme 'light 'solarized-light)
+(provide-theme 'solarized-light)
+
+;; powerline
+(powerline-default-theme)
 
 ;; Display line numbers
 (global-linum-mode t)
-;; (setq linum-format 'dynamic)
-(setq linum-format "%6d \u2502 ")
 
 ;; Attempt to fix the scroll/type lag
 (with-eval-after-load "linum"
@@ -46,13 +68,16 @@
 ; disable auto-fill (@->_<-@)
 (setq auto-fill-mode nil)
 
+; Fill column indicator (fci-mode)
+(setq-default fill-column 80)
+
 ;; Ivy
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
 
-; Fill column indicator (fci-mode)
-(setq-default fill-column 80)
+;; set window navigation
+(windmove-default-keybindings)
 
 ;; Make buffers read only as default
 (defun set-buffer-read-only () (setq buffer-read-only t))
@@ -66,6 +91,9 @@
 (global-set-key "\M-n" "\C-u1\C-v")
 
 ;; Cut, copy and paste stuff
+;; (setq x-select-enable-primary t)
+;; (global-set-key (kbd "<mouse-2>") 'x-clipboard-yank)
+(setq x-select-enable-clipboard t)
 (delete-selection-mode 1)
 
 ;; remove trailing whitespace before saving
@@ -107,8 +135,14 @@
 ; xml hook
 (add-hook 'nxml-mode-hook 'tc-indent-tabs-hook)
 
-; ruby hook
-; (add-hook 'ruby-mode-hook 'tc-indent-tabs-hook)
+;; ruby hook
+;; (add-hook 'ruby-mode-hook 'tc-indent-tabs-hook)
+
+;; css-hook
+(defun tc-css-mode-hook ()
+  (setq css-indent-offset 2))
+
+(add-hook 'css-mode-hook 'tc-css-mode-hook)
 
 ; javascript hook
 (add-hook 'js-mode-hook 'tc-indent-tabs-hook-js)
